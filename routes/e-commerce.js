@@ -6,8 +6,10 @@ const session = require('express-session');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
 const isUserAuthenticated = require('../isUserAuthenticated');
+const isUserAdmin = require('../isUserAdmin');
 const PgSimple = require('connect-pg-simple')(session);
 const { Users } = require('../models');
+const adminRoute = require('./admin');
 
 const store = new PgSimple({
     conString: `postgres://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`,
@@ -29,10 +31,6 @@ router.use(session({
 router.use(passport.initialize());
 router.use(passport.session());
 
-router.get('/testing', isUserAuthenticated, async (req, res) => {
-    const users = await Users.findAll()
-    res.status(200).json({message: 'Worked from testing', users});
-});
 
 router.post('/authentication/register', async (req, res) => {
     try {
@@ -101,5 +99,7 @@ router.get('/authentication/logout', isUserAuthenticated, (req, res) => {
         res.status(200).json({success: true, message: 'You are logged out'});
     });
 });
+
+router.use('/admin', adminRoute);
 
 module.exports = router;
