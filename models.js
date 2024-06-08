@@ -360,35 +360,35 @@ const Session = sequelize.define('Session', {
 });
 
 // Relationships
-Users.hasMany(Orders, { foreignKey: 'user_id' });
-Orders.belongsTo(Users, { foreignKey: 'user_id' });
+Users.hasMany(Orders, { foreignKey: 'user_id', as: 'order' });
+Orders.belongsTo(Users, { foreignKey: 'user_id', as: 'user' });
 
-Categories.hasMany(Products, { foreignKey: 'category_id' });
-Products.belongsTo(Categories, { foreignKey: 'category_id' });
+Categories.hasMany(Products, { foreignKey: 'category_id', as: 'product' });
+Products.belongsTo(Categories, { foreignKey: 'category_id', as: 'category' });
 
-Orders.hasMany(OrderItems, { foreignKey: 'order_id' });
-OrderItems.belongsTo(Orders, { foreignKey: 'order_id' });
+Orders.hasMany(OrderItems, { foreignKey: 'order_id', as: 'orderItem' });
+OrderItems.belongsTo(Orders, { foreignKey: 'order_id', as: 'order' });
 
-Products.hasMany(OrderItems, { foreignKey: 'product_id' });
-OrderItems.belongsTo(Products, { foreignKey: 'product_id' });
+Products.hasMany(OrderItems, { foreignKey: 'product_id', as: 'orderItem' });
+OrderItems.belongsTo(Products, { foreignKey: 'product_id', as: 'product' });
 
-Users.hasMany(Addresses, { foreignKey: 'user_id' });
-Addresses.belongsTo(Users, { foreignKey: 'user_id' });
+Users.hasMany(Addresses, { foreignKey: 'user_id', as: 'address' });
+Addresses.belongsTo(Users, { foreignKey: 'user_id', as: 'user' });
 
-Users.hasMany(Reviews, { foreignKey: 'user_id' });
-Reviews.belongsTo(Users, { foreignKey: 'user_id' });
+Users.hasMany(Reviews, { foreignKey: 'user_id', as: 'review' });
+Reviews.belongsTo(Users, { foreignKey: 'user_id', as: 'user' });
 
-Products.hasMany(Reviews, { foreignKey: 'product_id' });
-Reviews.belongsTo(Products, { foreignKey: 'product_id' });
+Products.hasMany(Reviews, { foreignKey: 'product_id', as: 'review' });
+Reviews.belongsTo(Products, { foreignKey: 'product_id', as: 'product' });
 
-Users.hasMany(PaymentMethods, { foreignKey: 'user_id' });
-PaymentMethods.belongsTo(Users, { foreignKey: 'user_id' });
+Users.hasMany(PaymentMethods, { foreignKey: 'user_id', as: 'paymentMethod' });
+PaymentMethods.belongsTo(Users, { foreignKey: 'user_id', as: 'user' });
 
-Users.hasMany(WishlistItems, { foreignKey: 'user_id' });
-WishlistItems.belongsTo(Users, { foreignKey: 'user_id' });
+Users.hasMany(WishlistItems, { foreignKey: 'user_id', as: 'wishlistItem' });
+WishlistItems.belongsTo(Users, { foreignKey: 'user_id', as: 'user' });
 
-Products.hasMany(WishlistItems, { foreignKey: 'product_id' });
-WishlistItems.belongsTo(Products, { foreignKey: 'product_id' });
+Products.hasMany(WishlistItems, { foreignKey: 'product_id', as: 'wishlistItem' });
+WishlistItems.belongsTo(Products, { foreignKey: 'product_id', as: 'product' });
 
 const asyncDatabase = async () => {
     try {
