@@ -224,6 +224,10 @@ const Addresses = sequelize.define('Address', {
         type: DataTypes.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
     },
+    updatedAt: {
+        type: DataTypes.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    },
 }, {
     tableName: 'addresses',
     timestamps: true,
@@ -274,6 +278,10 @@ const Reviews = sequelize.define('Review', {
         type: DataTypes.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
     },
+    updatedAt: {
+        type: DataTypes.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    },
 }, {
     tableName: 'reviews',
     timestamps: true,
@@ -310,7 +318,7 @@ const PaymentMethods = sequelize.define('PaymentMethod', {
     createdAt: {
         type: DataTypes.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-    },
+    },   
 }, {
     tableName: 'payment_methods',
     timestamps: true,
@@ -341,6 +349,10 @@ const WishlistItems = sequelize.define('WishlistItem', {
         },
     },
     createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    },
+    updatedAt: {
         type: DataTypes.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
     },
