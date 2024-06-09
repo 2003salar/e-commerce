@@ -175,6 +175,10 @@ const OrderItems = sequelize.define('OrderItem', {
     price: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false
+    },
+    total: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: false,
     }
 }, {
     tableName: 'order_items',
@@ -407,6 +411,7 @@ const asyncDatabase = async () => {
 asyncDatabase();
 
 module.exports = {
+    sequelize,
     Users,
     Categories,
     Products,
