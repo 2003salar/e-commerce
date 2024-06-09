@@ -37,9 +37,9 @@ router.get('/:id', isUserAdmin, async (req, res) => {
 // Create a product
 router.post('/', isUserAdmin, async (req, res) => {
     try {
-        const { name, description, price, category_id, image_url } = req.body;
+        const { name, description, price, category_id, image_url, quantity } = req.body;
 
-        if (!name || !price || !category_id || isNaN(category_id) ) {
+        if (!name || !price || !category_id || isNaN(category_id) || !quantity || isNaN(quantity) ) {
             return res.status(400).json({success: false, message: 'Missing required fields'});
         }
         
@@ -53,6 +53,7 @@ router.post('/', isUserAdmin, async (req, res) => {
             price,
             category_id,
             image_url,
+            quantity,
         });
 
         res.status(200).json({success: true, newProduct});

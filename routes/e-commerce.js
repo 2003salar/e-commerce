@@ -10,6 +10,7 @@ const isUserAdmin = require('../isUserAdmin');
 const PgSimple = require('connect-pg-simple')(session);
 const { Users } = require('../models');
 const adminRoute = require('./admin');
+const userRoute = require('./users');
 
 const store = new PgSimple({
     conString: `postgres://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`,
@@ -101,5 +102,6 @@ router.get('/authentication/logout', isUserAuthenticated, (req, res) => {
 });
 
 router.use('/admin', adminRoute);
+router.use('/users', userRoute);
 
 module.exports = router;
