@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const isUserAdmin = require('../isUserAdmin');
 const categoriesRoute = require('./category');
-const { Users, Categories } = require('../models');
+const productRoute = require('./products');
+const { Users, Categories, Products } = require('../models');
 
 router.get('/', isUserAdmin, (req, res) => {
     res.status(200).json({success: true, message: 'Hello again dear admin'});
@@ -24,5 +25,6 @@ router.get('/users', isUserAdmin, async (req, res) => {
 });
 
 router.use('/categories', categoriesRoute);
+router.use('/products', productRoute);
 
 module.exports = router;
