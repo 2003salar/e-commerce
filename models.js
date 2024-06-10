@@ -199,6 +199,7 @@ const Addresses = sequelize.define('Address', {
             key: 'id',
             onDelete: 'CASCADE',
         },
+        unique: true,
     },
     street: {
         type: DataTypes.STRING(255),

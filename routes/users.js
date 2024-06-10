@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const isUserAuthenticated = require('../isUserAuthenticated');
+const addressesRoute = require('./address');
 
-const { sequelize, Products, Orders, OrderItems } = require('../models');
+const { sequelize, Products, Orders, OrderItems, Addresses, Users } = require('../models');
 
-router.get('/', isUserAuthenticated, (req, res) => res.status(200).json({message: 'worked'}));
+router.use('/addresses', addressesRoute);
 
 // Buy a new product
 router.post('/orders/:id', isUserAuthenticated, async (req, res) => {
@@ -50,5 +51,6 @@ router.post('/orders/:id', isUserAuthenticated, async (req, res) => {
         res.status(500).json({success: false, message: 'Server error'});
     }
 });
+
 
 module.exports = router;
