@@ -1,13 +1,28 @@
 const express = require('express');
 const router = express.Router();
 const isUserAdmin = require('../isUserAdmin');
-const { Categories, Products } = require('../models');
+const { Categories, Products, Reviews, Users } = require('../models');
 
 // Get all products 
 router.get('/', isUserAdmin, async (req, res) => {
     try {
         const products = await Products.findAll({
             order: [['createdAt', 'DESC']],
+            include: [
+                {
+                    model: Reviews,
+                    as: 'review',
+                    key: 'product_id',
+                    include: [
+                        {
+                            model: Users,
+                            as: 'user',
+                            key: 'user_id',
+                            attributes: ['id', 'username', 'email', 'isAdmin']
+                        }
+                    ]
+                }
+            ]
         });
         res.status(200).json({success: false, products, hits: products.length});
     } catch (error) {

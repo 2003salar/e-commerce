@@ -365,9 +365,6 @@ Reviews.belongsTo(Users, { foreignKey: 'user_id', as: 'user' });
 Products.hasMany(Reviews, { foreignKey: 'product_id', as: 'review' });
 Reviews.belongsTo(Products, { foreignKey: 'product_id', as: 'product' });
 
-Users.hasMany(PaymentMethods, { foreignKey: 'user_id', as: 'paymentMethod' });
-PaymentMethods.belongsTo(Users, { foreignKey: 'user_id', as: 'user' });
-
 Users.hasMany(WishlistItems, { foreignKey: 'user_id', as: 'wishlistItem' });
 WishlistItems.belongsTo(Users, { foreignKey: 'user_id', as: 'user' });
 
@@ -395,7 +392,6 @@ module.exports = {
     OrderItems,
     Addresses,
     Reviews,
-    PaymentMethods,
     WishlistItems,
     Session,
 };
