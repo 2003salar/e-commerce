@@ -5,7 +5,7 @@ const isUserAuthenticated = require('../isUserAuthenticated');
 const { sequelize, Products, Orders, OrderItems } = require('../models');
 
 // Buy a new product
-router.post('/:id', isUserAuthenticated, async (req, res) => {
+router.post('/buy/:id', isUserAuthenticated, async (req, res) => {
     const transaction = await sequelize.transaction();
     try {
         const user = req.user;
