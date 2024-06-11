@@ -11,12 +11,4 @@ const { sequelize, Products, Orders, OrderItems, Addresses, Users } = require('.
 router.use('/addresses', addressesRoute);
 router.use('/orders', ordersRoute);
 
-router.post('/payment', isUserAuthenticated, async (req, res) => {
-    try {
-        
-    } catch (error) {
-        
-    }
-});
-
 module.exports = router;
