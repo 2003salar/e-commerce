@@ -288,43 +288,6 @@ const Reviews = sequelize.define('Review', {
     timestamps: true,
 });
 
-const PaymentMethods = sequelize.define('PaymentMethod', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-    },
-    user_id: {
-        type: DataTypes.BIGINT,
-        allowNull: false,
-        references: {
-            model: Users,
-            key: 'id',
-            onDelete: 'CASCADE',
-        },
-    },
-    card_number: {
-        type: DataTypes.STRING(20),
-        allowNull: false,
-    },
-    card_type: {
-        type: DataTypes.ENUM,
-        values: ['Visa', 'MasterCard', 'American Express', 'Discover'],
-        allowNull: false,
-    },
-    expiration_date: {
-        type: DataTypes.DATE,
-        allowNull: false,
-    },
-    createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-    },   
-}, {
-    tableName: 'payment_methods',
-    timestamps: true,
-});
-
 const WishlistItems = sequelize.define('WishlistItem', {
     id: {
         type: DataTypes.INTEGER,
