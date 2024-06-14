@@ -21,10 +21,12 @@ router.post('/buy/:id', isUserAuthenticated, async (req, res) => {
 
         const product = await Products.findByPk(id);
         if (!product) {
+            await transaction.rollback();
             return res.status(404).json({success: false, message: 'Product not found'});
         }
 
         if (product.quantity < quantity) {
+            await transaction.rollback();
             return res.status(400).json({success: false, message: 'We do not have enough quantity'});
         }
 
@@ -41,6 +43,7 @@ router.post('/buy/:id', isUserAuthenticated, async (req, res) => {
 
         const updatedQuantity = product.quantity - quantity;
         await product.update({ quantity: updatedQuantity }, { transaction });
+        await transaction.commit();
         res.status(201).json({success: true, newOrder, newOrderItems });
     } catch (error) {
         if (transaction) await transaction.rollback();
