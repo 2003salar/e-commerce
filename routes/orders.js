@@ -4,6 +4,26 @@ const isUserAuthenticated = require('../isUserAuthenticated');
 
 const { sequelize, Products, Orders, OrderItems } = require('../models');
 
+// Get all orders
+router.get('/', isUserAuthenticated, async (req, res) => {
+    try {
+        const orders = await Orders.findAll({
+            where: { user_id: req.user.id },
+            include: [
+                {
+                    model: OrderItems,
+                    as: 'orderItem',
+                    key: 'order_id',
+                },
+            ]
+        });
+        res.status(200).json({success: true, orders, hits: orders.length })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({success: false, message: 'Server error'});
+    }
+});
+
 // Buy a new product
 router.post('/buy/:id', isUserAuthenticated, async (req, res) => {
     const transaction = await sequelize.transaction();
@@ -51,6 +71,5 @@ router.post('/buy/:id', isUserAuthenticated, async (req, res) => {
         res.status(500).json({success: false, message: 'Server error'});
     }
 });
-
 
 module.exports = router;
