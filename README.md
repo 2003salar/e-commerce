@@ -129,6 +129,19 @@ Removes a product from the wishlist.
 
 ---
 
+### Search Products
+
+#### Search Products by Name
+
+- **GET `/search`**
+
+Searches for products by name.
+
+- **Query Parameters:**
+  - `name` (required): The name or partial name of the product to search for.
+
+--- 
+
 ## Middleware 🛡️
 
 The application uses a custom middleware `isUserAuthenticated` to protect routes that require authentication. This middleware checks if the user is authenticated before allowing access to the route.

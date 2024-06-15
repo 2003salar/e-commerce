@@ -6,9 +6,9 @@ const session = require('express-session');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
 const isUserAuthenticated = require('../isUserAuthenticated');
-const isUserAdmin = require('../isUserAdmin');
 const PgSimple = require('connect-pg-simple')(session);
-const { Users } = require('../models');
+const { Users, Products } = require('../models');
+const { Op } = require('sequelize');
 const adminRoute = require('./admin');
 const userRoute = require('./users');
 
@@ -103,5 +103,23 @@ router.get('/authentication/logout', isUserAuthenticated, (req, res) => {
 
 router.use('/admin', adminRoute);
 router.use('/users', userRoute);
+
+router.get('/search', isUserAuthenticated, async (req, res) => {
+    try {
+        const { name } = req.query;
+
+        const products = await Products.findAll({
+            where: {
+                name: {
+                    [Op.iLike]: `%${name}%`,
+                }
+            }
+        })
+        res.status(200).json({ products, hits: products.length });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({success: false, message: 'Server error'});
+    }
+});
 
 module.exports = router;
